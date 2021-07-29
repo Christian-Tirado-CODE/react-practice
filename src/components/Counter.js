@@ -1,12 +1,15 @@
-import { Component, Fragment } from "react";
 import classes from "./Counter.module.css";
-import { useSelector, useDispatch, connect } from "react-redux";
-/*const Counter = () => {
+import { useSelector, useDispatch } from "react-redux";
+
+const Counter = () => {
   // useDispatch - Custom hook that allows us to dispatch an action.
   const dispatch = useDispatch();
 
   const incrementHandler = () => {
      dispatch({type: 'INCREMENT'});
+  }
+  const increaseByAmountHandler = () => {
+     dispatch({type: 'INCREASE_BY_GIVEN_AMOUNT', amount: 5});
   }
   const decrementHandler = () => {
      dispatch({type: 'DECREMENT'});
@@ -21,14 +24,15 @@ import { useSelector, useDispatch, connect } from "react-redux";
       <div className={classes.value}>{counter}</div>
       <div>
         <button onClick={incrementHandler}>Increment</button>
+        <button onClick={increaseByAmountHandler}>Increase by 5</button>
         <button onClick={decrementHandler}>Decrement</button>
       </div>
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
     </main>
   );
 };
-*/
-class Counter extends Component {
+
+/*class Counter extends Component {
   constructor() {
     super();
   }
@@ -75,4 +79,5 @@ const mapDispatchToProps = (dispatch) => {
     decrement: () => dispatch({ type: "DECREMENT" }),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+*/
+export default Counter;
