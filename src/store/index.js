@@ -1,44 +1,38 @@
-import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
+
 
 const initialState = {
     counter: 0,
     showCounter: true
 }
-const counterReducer = (state = initialState, action) => {
-    /* 
-    IMPORTANT RULE: NEVER MUTATE STATE DIRECTLY. 
-    RETURN A NEW OBJECT WITH THE CHANGES YOU WANT TO MAKE IN THE STATE. 
-     A BAD EXAMPLE WOULD BE: 
-       state.counter++;
-    */
-    if(action.type === "INCREMENT"){
-        return {
-            counter: state.counter + 1,
-            showCounter: state.showCounter
-        }
-    }
-    if(action.type === "DECREMENT"){
-        return {
-            counter: state.counter - 1,
-            showCounter: state.showCounter
-        }
-    }
-    if(action.type === "INCREASE_BY_GIVEN_AMOUNT"){
-        return {
-            counter: state.counter + action.amount,
-            showCounter: state.showCounter
-        }
-    }
-    if(action.type === "TOGGLE_COUNTER"){
-        return {
-            showCounter: !state.showCounter,
-            counter: state.counter
-        }
-    }
 
-    return state;
-};
+const counterSlice = createSlice({
+    name: 'counter',
+    initialState,
+    reducers: {
+        increment(state) {
+        // REDUX TOOLKIT HAS A PACKAGE CALLED IMGUR THAT "ALLOWS" CODE TO MUTATED DIRECTLY.
+        // BEHIND THE SCENES IT CREATES A NEW STATE OBJECT, KEEP THE STATE WHICH WE ARE NOT EDITING AND THEN OVERRIDES THE OLD ONE.
+            state.counter++;
+        },
+        increase(state, action){
+            state.counter = state.counter + action.payload;
+        },
+        decrement(state) {
+            state.counter--;
+        },
+        toggle(state) {
+            state.showCounter = !state.showCounter;
+        }
+    }
+})
 
-const store = createStore(counterReducer);
+
+const store = configureStore({
+    reducer: counterSlice.reducer
+    
+});
+
+export const counterActions = counterSlice.actions;
 
 export default store;
