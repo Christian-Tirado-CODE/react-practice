@@ -6,6 +6,11 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: initialCartState,
     reducers: {
+
+      // REDUCERS MUST BE PURE, SIDE EFFECT FREE AND SYNCRONOUS.
+      // SIDE EFFECTS AND ASYNCRONOUS CODE MUST BE DONE EITHER 
+      // INSIDE A COMPONENT OR ON AN ACTION CREATOR
+
         addItem(state, action){
             const cartItemIdx = state.cartItems.findIndex(p => p.id === action.payload.product.id);
             if(cartItemIdx < 0)
