@@ -7,23 +7,33 @@ const cartSlice = createSlice({
     initialState: initialCartState,
     reducers: {
         addItem(state, action){
-            const cartItemIdx = state.cartItems.findIndex(p => p.name === action.payload.name);
+            const cartItemIdx = state.cartItems.findIndex(p => p.id === action.payload.product.id);
             if(cartItemIdx < 0)
-                state.cartItems.push({...action.payload.product, quantity: 1});
+                state.cartItems.push({...action.payload.product, quantity: 1, total: action.payload.product.price});
         
             else
                 state.cartItems[cartItemIdx].quantity++;
         },
+        removeItem(state, action){
+            
+           const updatedCartItems = state.cartItems.filter(item => item.id !== action.payload);
+            state.cartItems = updatedCartItems; 
+        },
+
         increaseQuantity(state, action){
             state.cartItems.forEach(item => {
-                if(item.name === action.payload)
+                if(item.id === action.payload)
                     item.quantity++;
+                    item.total *= 2;
+
             });
         },
         decreaseQuantity(state, action){
             state.cartItems.forEach(item => {
-                if(item.name === action.payload && item.quantity > 1)
+                if(item.id === action.payload && item.quantity > 1){
                     item.quantity--;
+                    item.total /= 2;
+                }
             });
         },
         toggleCart(state){
