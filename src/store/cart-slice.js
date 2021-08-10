@@ -11,6 +11,11 @@ const cartSlice = createSlice({
       // SIDE EFFECTS AND ASYNCRONOUS CODE MUST BE DONE EITHER 
       // INSIDE A COMPONENT OR ON AN ACTION CREATOR
 
+
+      replaceCart(state, action){
+         state.totalQuantity = action.payload.totalQuantity;
+         state.cartItems = action.payload.cartItems;
+      },
         addItem(state, action){
             const cartItemIdx = state.cartItems.findIndex(p => p.id === action.payload.product.id);
             if(cartItemIdx < 0)
