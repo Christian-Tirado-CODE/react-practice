@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialCartState = {cartItems: [], isShowing: true};
+const initialCartState = {cartItems: [], totalQuantity: 0, isShowing: true};
 //{ title: 'Test Item', quantity: 3, total: 18, price: 6 }
 const cartSlice = createSlice({
     name: 'cart',
@@ -18,6 +18,7 @@ const cartSlice = createSlice({
       },
         addItem(state, action){
             const cartItemIdx = state.cartItems.findIndex(p => p.id === action.payload.product.id);
+            state.totalQuantity++;
             if(cartItemIdx < 0)
                 state.cartItems.push({...action.payload.product, quantity: 1, total: action.payload.product.price});
         
@@ -27,7 +28,8 @@ const cartSlice = createSlice({
         removeItem(state, action){
             
            const updatedCartItems = state.cartItems.filter(item => item.id !== action.payload);
-            state.cartItems = updatedCartItems; 
+            state.cartItems = updatedCartItems;
+            state.totalQuantity--; 
         },
 
         increaseQuantity(state, action){
@@ -37,12 +39,14 @@ const cartSlice = createSlice({
                     item.total *= 2;
 
             });
+            state.totalQuantity++;
         },
         decreaseQuantity(state, action){
             state.cartItems.forEach(item => {
                 if(item.id === action.payload && item.quantity > 1){
                     item.quantity--;
                     item.total /= 2;
+                    state.totalQuantity--;
                 }
             });
         },
@@ -51,6 +55,7 @@ const cartSlice = createSlice({
         }
     }
 });
+
 
 export const cartActions = cartSlice.actions;
 
