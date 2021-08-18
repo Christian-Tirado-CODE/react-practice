@@ -61,4 +61,16 @@ let cat: Animal;
 let cats: Animal[];
 
 
+// Functions & Function Types
+
+const substract = (a: number, b:number):number => {
+  return a - b; // Return is of type number. You can see it after the colon(:) 
+                // if you hover over. It can be infered or we can set it after the parameters.
+};
+
+const printOutput = (value: any) => {
+  console.log(value); // Since we don't return anything it has a return type of void.
+};
+
+
 
