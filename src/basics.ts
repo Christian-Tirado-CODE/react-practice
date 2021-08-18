@@ -73,4 +73,38 @@ const printOutput = (value: any) => {
 };
 
 
+// Generics
+
+// Allows to write functions that are type safe yet flexible.
+// You can use any type in the function but once used, for that function execution that type is locked in and known.
+
+/* const insertAtBeginning = (arr: any[], value: any) => {
+  const newArr = [value, ...arr];
+  return newArr;
+};
+
+const arr = [1, 2, 3];
+
+const updatedArr = insertAtBeginning(arr, 0);
+
+updatedArr[0].split(''); // No errors in Typescript but will throw error in JS once it's compiled.
+
+ */
+
+
+const insertAtBeginning = <T>(arr: T[], value: T) => { //Using Generic we indicate that both the array and the number should be of same type.
+  const newArr = [value, ...arr];
+  return newArr;
+};
+
+const arr = [1, 2, 3];
+
+const updatedArr = insertAtBeginning(arr, 0);
+
+//updatedArr[0].split(''); // Error: Property split does not exist on type number.
+
+
+
+
+
 
