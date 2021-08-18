@@ -44,3 +44,12 @@ people = [
     {name: 'Joe', age: 80}
 ]
 
+
+// Type Inference:
+let course = "React - The Complete Guide"; 
+//course = 1234; Error: typescript infers the data type based on the value assigned.
+
+// Union Types = A type definition that allows multiple types.
+let dog: string | number = "Shailo";
+
+dog=1;
