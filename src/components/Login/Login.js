@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -11,20 +11,25 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+
+  /* Another scenario where useEffect is useful: avoiding code duplication
+     Clarification: a side effect is when an action/code  should be executed in response to another action.
+     In this example, the form validity code is executed when the user updates the email and password fields.
+  */
+  useEffect(() => {
+    setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+    );
+  }, [enteredEmail, enteredPassword]);
+
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
 
-    setFormIsValid(
-      event.target.value.includes('@') && enteredPassword.trim().length > 6
-    );
   };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
 
-    setFormIsValid(
-      event.target.value.trim().length > 6 && enteredEmail.includes('@')
-    );
   };
 
   const validateEmailHandler = () => {
