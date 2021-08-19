@@ -4,6 +4,11 @@ import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import MainHeader from './components/MainHeader/MainHeader';
 
+const emailReducer = (prevState, action) => {
+    return {value: '', isValid: false};
+
+};
+
 function App() {
   /* 
   useReducer for STATE MANAGEMENT:
