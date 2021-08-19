@@ -17,9 +17,17 @@ const Login = (props) => {
      In this example, the form validity code is executed when the user updates the email and password fields.
   */
   useEffect(() => {
-    setFormIsValid(
+
+    const identifier = setTimeout(() => {
+      setFormIsValid(
         enteredEmail.includes('@') && enteredPassword.trim().length > 6
     );
+    }, 500);
+
+    return () => { // The cleanup function runs when the component unmounts from the DOM.
+      clearTimeout(identifier);
+    }
+    
   }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
