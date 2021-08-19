@@ -11,21 +11,10 @@ const emailReducer = (prevState, action) => {
 
 function App() {
   /* 
-  useReducer for STATE MANAGEMENT:
-    Sometimes you have more complex state, for example, if you have multiple states, 
-    multiple ways of changing it or dependencies to other states.
-
-    If the state is complex, useState() becomes harder or more error prone.
-
-    useReducer might be a substitute for useState if you need more powerful state management.
-
-    The downside is that it might be more complicated to use and requires more setup.
-
-    useReducer is a good idea when you have state that belongs together and/or you have state updates based on other state.
-   
-    const [stateSnapshot, dispatchFunction] = useReducer(reducerFunction, initialState, initFunction);
-    reducerFunction = (prevState, action) => newState
-    */
+     Sometimes we pass in data to a component via props but that component doesn't use the data it just forwards it to a child component.
+     In bigger apps is common to see large prop chains but it would be nice if a component receives from a parent that does not forward state/data from another component.
+    Context is a component-wide state storage.
+     */
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   useEffect(() => {
