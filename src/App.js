@@ -5,6 +5,22 @@ import Home from './components/Home/Home';
 import MainHeader from './components/MainHeader/MainHeader';
 
 function App() {
+  /* 
+  useReducer for STATE MANAGEMENT:
+    Sometimes you have more complex state, for example, if you have multiple states, 
+    multiple ways of changing it or dependencies to other states.
+
+    If the state is complex, useState() becomes harder or more error prone.
+
+    useReducer might be a substitute for useState if you need more powerful state management.
+
+    The downside is that it might be more complicated to use and requires more setup.
+
+    useReducer is a good idea when you have state that belongs together and/or you have state updates based on other state.
+   
+    const [stateSnapshot, dispatchFunction] = useReducer(reducerFunction, initialState, initFunction);
+    reducerFunction = (prevState, action) => newState
+    */
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   useEffect(() => {
