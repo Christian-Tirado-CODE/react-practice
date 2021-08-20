@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
-
+import AuthContext from '../../context/auth-context';
 const emailReducer = (prevState, action) => {
   if(action.type === 'USER_INPUT'){
     return {value: action.value, isValid: action.value.includes('@')};
@@ -32,7 +32,7 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [emailState, emailDispatch] = useReducer(emailReducer, {value: '', isValid: false});
   const [passwordState, passwordDispatch] = useReducer(passwordReducer, {value: '', isValid: false});
-
+  const authCtx = useContext(AuthContext);
 
   const {isValid: emailIsValid} = emailState; // You can use object destructuring to further optimize use effect by avoiding unnecessary executions. Also useful WHEN PROPS IS A DEPENDENCY OF THE USE EFFECT FUNCTION.
   const {isValid: passwordIsValid} = passwordState;
@@ -85,7 +85,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    authCtx.onLogin(emailState.value, passwordState.value);
   };
 
   return (
