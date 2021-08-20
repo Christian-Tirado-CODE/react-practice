@@ -67,7 +67,7 @@ const Login = (props) => {
   };
 
   const passwordChangeHandler = (event) => {
-    passwordDispatch({type: 'USER_INPUT', action: event.target.value});
+    passwordDispatch({type: 'USER_INPUT', value: event.target.value});
     
 
     /* setFormIsValid(
