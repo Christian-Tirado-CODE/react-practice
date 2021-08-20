@@ -45,3 +45,10 @@ export default AuthContext;
 // To use Context in the app there's two steps:
 // 1. Provide the context - All components that need access have to be wrapped by the provider.
 // 2. Consume the Context
+
+
+/*
+    Context Limitations:
+    1. It is not a replacement for props and component configuration. If we had used context in the <Button> component we would not make it configurable.
+    2. It is not optimized for high frequency changes.
+*/
