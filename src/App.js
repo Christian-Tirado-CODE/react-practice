@@ -17,6 +17,10 @@ function App() {
     How:
     Test success and error messages, also test rare cases(but possible) results.
 
+    Required Tools & Setup:
+    Jest - We need a tool for running our tests & asserting the results.
+    React testing Library - Also, we need a tool for "simulating" (rendering) our React app/components.
+    Both tools are already set up for you when using create-react-app.
     */
 
 
