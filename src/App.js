@@ -8,7 +8,16 @@ function App() {
     Integration tests= Test the combination of building blocks. A project typically contains a couple of integration tests.
     End-to-end tests= Test complete scenarios in your app just as the user would experience them. A project contains only a few e-to-e tests.
  
- */
+
+    What to test & How to test:
+    What:
+    Test the different building blocks
+    Unit tests: The smallest building blocks that make up your app.
+ 
+    How:
+    Test success and error messages, also test rare cases(but possible) results.
+
+    */
 
 
   return (
