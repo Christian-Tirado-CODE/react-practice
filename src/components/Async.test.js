@@ -22,6 +22,13 @@ describe("Async component", () => {
     YOU DON'T TO TEST CODE THAT YOU HAVE NOT WRITTEN. In this case you don't want to test to test if fetch api successfully sent the data.
     You wan't to test if the component responds correctly for different outcomes(when the data is fetched or when an error occurs).
     We will use a mock function. It does want we want but does not send a real request.
+    
+    
+        ADDITIONAL RESOURCES: 
+        JEST AND REACT TESTING LIBRARY DOCUMENTATION 
+        
+        REACT HOOKS TESTING  LIBRARY(SPECIALLY CUSTOM HOOKS)
+    
     */ 
         
     
