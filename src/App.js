@@ -25,6 +25,11 @@ function App() {
       The <Button> component rerenders even though we use React.memo() because we passed in a function object as prop.
       When a component rerenders it creates new values and that goes for primitives and reference types. When the component compares the previous function object with the current function object they are not the same.
       because  {} === {} is false. On the other hand 1 === 1 and false === false.
+   
+    State scheduling= When a state updating function is executed the state update is scheduled and not executed immediately.
+    State Batching= When you have multiple state updating functions executed syncronously they will be grouped in the same render cycle.
+     useMemo() = Allow us to store any kind of values. Very useful when you have a child component that has some performance intensive task(like sorting) and you don't want to have unnecesary render cycles that could slow your app. 
+      Not used as often as useCallback().
     */
     const [showParagraph, setShowParagraph] = useState(false);
     const [allowToggle, setAllowToggle] = useState(false);
