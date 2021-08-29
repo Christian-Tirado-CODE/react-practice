@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import MoviesList from './components/MoviesList';
 import './App.css';
 
@@ -9,8 +9,14 @@ function App() {
   /* 
   Data is typically sent in JSON format which is easy to convert to javascript objects. The response object has the json() method that does that.
    Status codes: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
+   Since  an http request is a side-effect we wrap the function call inside the useEffect hook.
+   We specify the function call as a dependency because we might have an external state that causes the function to change.
+   Since functions are objects which are re-created when the component re-renders the best way approach is to use useCallback() to avoid unnecesary function recreations.
   */
-  const fetchMoviesHandler = async () => {
+
+
+  const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
      try { 
@@ -38,7 +44,22 @@ function App() {
       setError(error.message);
     }
     setIsLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchMoviesHandler();
+ }, [fetchMoviesHandler]);
+
+  let content = <p>No movies found.</p>;
+
+  if(movies.length > 0)
+    content = <MoviesList movies={movies} />;
+
+  if(isLoading)
+    content = <p>Loading...</p>;
+  
+  if(error)
+    content = <p>{error}</p>;
   
 
   return (
@@ -47,10 +68,7 @@ function App() {
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
       <section>
-        {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
-        {!isLoading && movies.length === 0 && !error && <p>No movies found.</p>}
-        {!isLoading && error && <p>{error}</p>}
-        {isLoading &&  <p>Loading...</p>}
+        {content}
 
       </section>
     </React.Fragment>
