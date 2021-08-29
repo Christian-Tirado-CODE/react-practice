@@ -1,46 +1,40 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+
 import MoviesList from './components/MoviesList';
+import AddMovie from './components/AddMovie';
 import './App.css';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  /* 
-  Data is typically sent in JSON format which is easy to convert to javascript objects. The response object has the json() method that does that.
-   Status codes: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-
-   Since  an http request is a side-effect we wrap the function call inside the useEffect hook.
-   We specify the function call as a dependency because we might have an external state that causes the function to change.
-   Since functions are objects which are re-created when the component re-renders the best way approach is to use useCallback() to avoid unnecesary function recreations.
-  */
-
 
   const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-     try { 
-
-      const response = await fetch('https://swapi.dev/api/films');
-      if(!response.ok){
-        throw new Error(response.status);
-     }
+    try {
+      const response = await fetch('https://movies-c863f-default-rtdb.firebaseio.com/movies.json');
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
 
       const data = await response.json();
+      console.log(data);
 
-     
- 
-      const transformedMovies = data.results.map(movie => {
-          return {
-            id: movie.episode_id,
-            title: movie.title,
-            openingText: movie.opening_crawl,
-            releaseDate: movie.release_date
-          }
-      });
-      setMovies(transformedMovies);
-      
-    }catch(error) {
+      const loadedMovies = [];
+
+      // for in loop allows you to iterate through all the properties of an object.
+    for(const key in data) {
+       loadedMovies.push({
+        id: key,
+        title: data[key].title,
+        openingText: data[key].openingText,
+        releaseDate: data[key].releaseDate
+       });
+    }
+
+      setMovies(loadedMovies);
+    } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
@@ -48,29 +42,42 @@ function App() {
 
   useEffect(() => {
     fetchMoviesHandler();
- }, [fetchMoviesHandler]);
+  }, [fetchMoviesHandler]);
 
-  let content = <p>No movies found.</p>;
+ async function addMovieHandler(movie) {
+    const response = await fetch('https://movies-c863f-default-rtdb.firebaseio.com/movies.json', {
+      method: 'POST',
+      body: JSON.stringify(movie),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
-  if(movies.length > 0)
+  }
+
+  let content = <p>Found no movies.</p>;
+
+  if (movies.length > 0) {
     content = <MoviesList movies={movies} />;
+  }
 
-  if(isLoading)
-    content = <p>Loading...</p>;
-  
-  if(error)
+  if (error) {
     content = <p>{error}</p>;
-  
+  }
+
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  }
 
   return (
     <React.Fragment>
       <section>
-        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+        <AddMovie onAddMovie={addMovieHandler} />
       </section>
       <section>
-        {content}
-
+        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
+      <section>{content}</section>
     </React.Fragment>
   );
 }
