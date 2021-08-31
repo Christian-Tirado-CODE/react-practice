@@ -2,6 +2,7 @@ import './App.css';
 import {Route} from "react-router-dom";
 import Welcome from './pages/Welcome';
 import Products from './pages/Products';
+import MainHeader from './components/MainHeader';
 function App() {
   /* 
     React router handles different paths and loads components based on those given paths.
@@ -13,6 +14,7 @@ function App() {
   */
   return (
     <div className="App">
+      <MainHeader />
       <Route path="/welcome">
       <Welcome />
       </Route>
